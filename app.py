@@ -141,7 +141,7 @@ Best,
 
 
 Now create for:
-Prospect: {prospect_name} {designation} at {company}
+Prospect: {prospect_first_name} {designation} at {company}
 Key Highlight: {state['prospect_background']}
 Event: {state.get('event_name', '')}
 
