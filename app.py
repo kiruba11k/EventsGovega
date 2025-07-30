@@ -135,7 +135,7 @@ Hi {prospect_first_name},"""
         if not any(phrase in message.lower() for phrase in connection_phrases):
             # Add connection note if missing
             message += "\nI'll be there too & looking forward to catching up with you at the event."
-        if {state['company']}.lower() not in message.lower():
+        if state['company'].lower() not in message.lower():
             # Add company mention if missing
             message = message.replace(
                 f"Hi {prospect_first_name},",
