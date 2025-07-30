@@ -135,6 +135,10 @@ Hi {prospect_first_name},"""
         # Ensure proper closing
         if f"Best, {my_name}" not in message:
             message += f"\n\nBest, {my_name}"
+            
+        if message.count(f"Best, {my_name}") > 1:
+            parts = message.split(f"Best, {my_name}")
+            message = parts[0].strip() + f"\n\nBest, {my_name}"
 
         return {**state, "final_message": message}
     except Exception as e:
