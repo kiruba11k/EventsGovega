@@ -16,8 +16,9 @@ class ProspectMessageState(TypedDict):
     event_details: Optional[str]
     final_message: Optional[str]
 
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]    
 
-client = Groq(api_key=os.getenv("GROQ_API_KEY", "your_api_key_here"))
+client = Groq(api_key=GROQ_API_KEY)
 
 def groq_llm(prompt: str, model: str = "llama3-8b-8192", temperature: float = 0.3) -> str:
     """Generate text using Groq API"""
