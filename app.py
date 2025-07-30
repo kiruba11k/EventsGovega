@@ -64,6 +64,8 @@ def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     my_name = "Sumana"  # Hardcoded for consistency
 
     prompt = f"""
+     IMPORTANT: Output ONLY the message itself. 
+Do NOT include any explanations, labels, or introductions.
 Create a SHORT LinkedIn connection message (MAX 3 LINES) following this natural pattern:
 
 1. "Hi {prospect_first_name},"
