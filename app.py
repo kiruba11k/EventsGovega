@@ -183,10 +183,10 @@ with st.form("prospect_form"):
 if submitted:
     with st.spinner("Generating message..."):
         initial_state: ProspectMessageState = {
-            "prospect_name": prospect_name,
-            "designation": designation,
-            "company": company,
-            "industry": industry,
+            # "prospect_name": prospect_name,
+            # "designation": designation,
+            # "company": company,
+            # "industry": industry,
             "prospect_background": prospect_background,
             "my_background": my_background,
             "event_name": event_name,
