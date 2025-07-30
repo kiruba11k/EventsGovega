@@ -171,10 +171,10 @@ st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
 st.title(" First Level Msgs for Ai4 Vegas 2025")
 
 with st.form("prospect_form"):
-    # prospect_name = st.text_input("Prospect Name", "Brent Parks")
-    # designation = st.text_input("Designation", "")
-    # company = st.text_input("Company", "")
-    # industry = st.text_input("Industry", "")
+    prospect_name = st.text_input("Prospect Name", "Brent Parks")
+    designation = st.text_input("Designation", "")
+    company = st.text_input("Company", "")
+    industry = st.text_input("Industry", "")
     prospect_background = st.text_area("Prospect Background", "Prospect professional background goes here...")
     my_background = st.text_area("Your Background", "Your professional background goes here...")
     event_name = st.text_input("Event Name", "Ai4 Vegas 2025")
@@ -185,10 +185,10 @@ with st.form("prospect_form"):
 if submitted:
     with st.spinner("Generating message..."):
         initial_state: ProspectMessageState = {
-            # "prospect_name": prospect_name,
-            # "designation": designation,
-            # "company": company,
-            # "industry": industry,
+            "prospect_name": prospect_name,
+            "designation": designation,
+            "company": company,
+            "industry": industry,
             "prospect_background": prospect_background,
             "my_background": my_background,
             "event_name": event_name,
