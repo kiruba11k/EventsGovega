@@ -58,9 +58,19 @@ def summarize_backgrounds(state: ProspectMessageState) -> ProspectMessageState:
         "my_background": summarizer(state["my_background"])
     }
 
+import re
+
+def extract_name_from_background(background: str) -> str:
+    if not background:
+        return "there"
+    # Take first two capitalized words as name
+    match = re.findall(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?', background)
+    if match:
+        return match[0]
+    return "there"
 def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     """Node to generate LinkedIn message with event context"""
-    prospect_first_name = state['prospect_name'].split()[0]
+    prospect_first_name = extract_name_from_background(state['prospect_background'])
     my_name = "Sumana"  # Hardcoded for consistency
 
     prompt = f"""
@@ -159,10 +169,10 @@ st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
 st.title(" First Level Msgs for Ai4 Vegas 2025")
 
 with st.form("prospect_form"):
-    prospect_name = st.text_input("Prospect Name", "Brent Parks")
-    designation = st.text_input("Designation", "")
-    company = st.text_input("Company", "")
-    industry = st.text_input("Industry", "")
+    # prospect_name = st.text_input("Prospect Name", "Brent Parks")
+    # designation = st.text_input("Designation", "")
+    # company = st.text_input("Company", "")
+    # industry = st.text_input("Industry", "")
     prospect_background = st.text_area("Prospect Background", "Prospect professional background goes here...")
     my_background = st.text_area("Your Background", "Your professional background goes here...")
     event_name = st.text_input("Event Name", "Ai4 Vegas 2025")
@@ -197,7 +207,7 @@ if submitted:
         }});
     }}
     </script>
-    <button onclick="copyToClipboard()">📋 Copy Message</button>
+    <button onclick="copyToClipboard()"> Copy Message</button>
     """
 
     st.components.v1.html(copy_code, height=50)
