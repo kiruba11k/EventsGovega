@@ -171,7 +171,7 @@ st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
 st.title(" First Level Msgs for Ai4 Vegas 2025")
 
 with st.form("prospect_form"):
-    prospect_name = st.text_input("Prospect Name", "Brent Parks")
+    prospect_name = st.text_input("Prospect Name", "")
     designation = st.text_input("Designation", "")
     company = st.text_input("Company", "")
     industry = st.text_input("Industry", "")
