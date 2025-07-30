@@ -19,6 +19,35 @@ class ProspectMessageState(TypedDict):
 GROQ_API_KEY = st.secrets["GROQ_API_KEY"]    
 
 client = Groq(api_key=GROQ_API_KEY)
+def extract_details_from_background(background: str) -> dict:
+    """
+    Extract name, designation, and company from prospect background using LLM.
+    """
+    prompt = f"""
+Extract the following details from the background text below:
+
+- Full Name
+- Designation/Role
+- Company/Organization
+
+Return the result in JSON format with keys: name, designation, company.
+If information is missing, use an empty string.
+
+Background:
+{background}
+"""
+    try:
+        response = groq_llm(prompt, temperature=0)
+        import json
+        details = json.loads(response)
+        return {
+            "name": details.get("name", "").strip(),
+            "designation": details.get("designation", "").strip(),
+            "company": details.get("company", "").strip()
+        }
+    except Exception as e:
+        print(f"Detail extraction failed: {e}")
+        return {"name": "", "designation": "", "company": ""}
 
 def groq_llm(prompt: str, model: str = "llama3-8b-8192", temperature: float = 0.3) -> str:
     """Generate text using Groq API"""
@@ -70,6 +99,12 @@ def extract_name_from_background(background: str) -> str:
     return "there"
 def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     """Node to generate LinkedIn message with event context"""
+    extracted = extract_details_from_background(state['prospect_background'])
+    extracted_name = extracted["name"] or "Prospect"
+    designation = extracted["designation"] or state.get("designation", "")
+    company = extracted["company"] or state.get("company", "")
+    prospect_first_name = extracted_name.split()[0] if extracted_name != "Prospect" else "there"
+
     prospect_first_name = extract_name_from_background(state['prospect_background'])
     my_name = "Sumana"  # Hardcoded for consistency
 
@@ -106,7 +141,7 @@ Best,
 
 
 Now create for:
-Prospect: {state['prospect_name']} ({state['designation']} at {state['company']})
+Prospect: {prospect_name} {designation} at {company}
 Key Highlight: {state['prospect_background']}
 Event: {state.get('event_name', '')}
 
@@ -134,7 +169,7 @@ Hi {prospect_first_name},"""
             # Add connection note if missing
             message += "\nI'll be there too & looking forward to catching up with you at the event."
 
-        if state['company'].lower() not in message.lower():
+        if {company}.lower() not in message.lower():
             # Add company mention if missing
             message = message.replace(
                 f"Hi {prospect_first_name},",
