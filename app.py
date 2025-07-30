@@ -132,9 +132,6 @@ Hi {prospect_first_name},"""
                 1
             )
 
-        # Ensure proper closing
-        if f"Best, {my_name}" not in message:
-            message += f"\n\nBest, {my_name}"
             
         if message.count(f"Best, {my_name}") > 1:
             parts = message.split(f"Best, {my_name}")
