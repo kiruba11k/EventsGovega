@@ -105,6 +105,16 @@ Hi {prospect_first_name},"""
         response = groq_llm(prompt, temperature=0.7)
         # Clean response
         message = response.strip()
+        unwanted_starts = [
+            "Here is a LinkedIn connection message",
+            "Here’s a LinkedIn message",
+            "LinkedIn connection message:",
+            "Message:",
+            "Output:"
+        ]
+        for phrase in unwanted_starts:
+            if message.lower().startswith(phrase.lower()):
+                message = message.split("\n", 1)[-1].strip()
 
         # Ensure connection note is present
         connection_phrases = ["look forward", "would be great", "hope to connect", "love to connect", "looking forward"]
