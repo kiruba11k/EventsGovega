@@ -71,7 +71,7 @@ def extract_name_from_background(background: str) -> str:
     return "there"
 def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     """Node to generate LinkedIn message with event context"""
-    extracted_name = extract_name_from_background_llm(state['prospect_background'])
+    extracted_name = extract_name_from_background(state['prospect_background'])
     prospect_first_name = extracted_name.split()[0] if extracted_name != "Unknown Prospect" else "there"
     my_name = "Sumana"  # Hardcoded for consistency
 
