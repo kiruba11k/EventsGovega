@@ -10,10 +10,7 @@ class ProspectMessageState(TypedDict):
     company: Optional[str]
     industry: Optional[str]
     prospect_background: str
-    my_background: str
-    web_summary: Optional[str]
-    event_name: Optional[str]
-    event_details: Optional[str]
+    my_background: Optional[str]
     final_message: Optional[str]
 
 GROQ_API_KEY = st.secrets["GROQ_API_KEY"]    
@@ -56,7 +53,7 @@ def summarize_backgrounds(state: ProspectMessageState) -> ProspectMessageState:
     return {
         **state,
         "prospect_background": summarizer(state["prospect_background"]),
-        "my_background": summarizer(state["my_background"])
+        # "my_background": summarizer(state["my_background"])
     }
 
 import re
@@ -171,13 +168,13 @@ st.title(" First Level Msgs for Ai4 Vegas 2025")
 
 with st.form("prospect_form"):
     prospect_name = st.text_input("Prospect Name", "")
-    designation = st.text_input("Designation", "")
-    company = st.text_input("Company", "")
-    industry = st.text_input("Industry", "")
+    designation = ""
+    company = ""
+    industry = ""
     prospect_background = st.text_area("Prospect Background", "Prospect professional background goes here...")
-    my_background = st.text_area("Your Background", "Your professional background goes here...")
-    event_name = st.text_input("Event Name", "Ai4 Vegas 2025")
-    event_details = st.text_input("Event Details", "August 12-14, MGM Grand Las Vegas")
+    my_background = ""
+    event_name =  "Ai4 Vegas 2025"
+    event_details = "August 12-14, MGM Grand Las Vegas"
 
     submitted = st.form_submit_button("Generate Message")
 
