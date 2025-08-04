@@ -61,7 +61,6 @@ import re
 def extract_name_from_background(background: str) -> str:
     if not background:
         return "there"
-    # Take first two capitalized words as name
     match = re.findall(r'\b[A-Z][a-z]+(?:\s[A-Z][a-z]+)?', background)
     if match:
         return match[0]
@@ -70,25 +69,45 @@ def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     """Node to generate LinkedIn message with event context"""
     extracted_name = extract_name_from_background(state['prospect_background'])
     prospect_first_name = extracted_name.split()[0] if extracted_name != "Unknown Prospect" else "there"
-    my_name = "Sumana"  # Hardcoded for consistency
+    my_name = "Sumana"  
+
+    # Clean background: Remove company and designation references
+    clean_background = re.sub(
+        r'at\s+\w+\s+(\w+\s+){0,3}(of|Systems|America|Inc\.?|Ltd\.?|Corp\.?)?',
+        '',
+        state['prospect_background'],
+        flags=re.IGNORECASE
+    )
+    clean_background = re.sub(
+        r'\s*specializing in\s*\w+|\s*with\s+\w+\s+experience|\s*as\s+a\s+\w+',
+        '',
+        clean_background
+    ).strip()
+    clean_background = re.sub(r'\s{2,}', ' ', clean_background)  # Remove extra spaces
 
     prompt = f"""
-     IMPORTANT: Output ONLY the message itself. 
+IMPORTANT: Output ONLY the message itself. 
 Do NOT include any explanations, labels, or introductions.
 Create a SHORT LinkedIn connection message (MAX 3 LINES) following this natural pattern:
 
 1. "Hi {prospect_first_name},"
-2. Mention company participation in event: "I see that you will be attending {state.get('event_name', '')}"
-3. Highlight one specific achievement/role from their background WITHOUT using flattery words (avoid:  exploring,  interested,  learning, No easy feat, Impressive, Noteworthy, Remarkable, Fascinating, Admiring, Inspiring, No small feat, No easy task, Stood out)
-4. Avoid these kind of flattery words  exploring,  interested,  learning, No easy feat, Impressive, Noteworthy, Remarkable, Fascinating, Admiring, Inspiring, No small feat, No easy task, Stood out
+2. Mention event participation: "I see that you will be attending {state.get('event_name', '')}"
+3. Highlight one specific achievement/expertise from their background WITHOUT mentioning companies or job titles
+4. Avoid these flattery words: exploring, interested, learning, No easy feat, Impressive, Noteworthy, Remarkable, Fascinating, Admiring, Inspiring, No small feat, No easy task, Stood out
 5. Express your attendance and desire to connect
 6. Close with "Best, {my_name}"
-
 
 Examples:
 
 Hi Tamara,
-I see that you’ll be attending Ai4 Vegas 2025. Your leadership in driving agentic AI, multi-agent systems, AI governance to transform healthcare and enterprise outcomes really caught my attention. I’ll be there too & looking forward to catching up with you at the event!
+I see that you'll be attending Ai4 Vegas 2025. Your leadership in driving agentic AI and multi-agent systems caught my attention. 
+I'll be there too & looking forward to catching up at the event!
+Best,
+{my_name}
+
+Hi David,
+I see that you'll be attending Ai4 Vegas 2025. Your work on analytics around content protection caught my attention.
+I'll be there too & looking forward to catching up at the event.
 Best,
 {my_name}
 
@@ -158,16 +177,16 @@ Best,
 {my_name}
 
 Now create for:
-Prospect: {state['prospect_name']} ({state['designation']} at {state['company']})
-Key Highlight: {state['prospect_background']}
+Prospect: {state['prospect_name']}
+Key Highlight: {clean_background}
 Event: {state.get('event_name', '')}
 
-Message (MAX 2-3 LINES within 250 chars - follow the pattern above):
+Message (MAX 2-3 LINES within 250 chars):
 Hi {prospect_first_name},"""
+
 
     try:
         response = groq_llm(prompt, temperature=0.7)
-        # Clean response
         message = response.strip()
         unwanted_starts = [
             "Here is a LinkedIn connection message",
@@ -180,13 +199,10 @@ Hi {prospect_first_name},"""
             if message.lower().startswith(phrase.lower()):
                 message = message.split("\n", 1)[-1].strip()
 
-        # Ensure connection note is present
         connection_phrases = ["look forward", "would be great", "hope to connect", "love to connect", "looking forward"]
         if not any(phrase in message.lower() for phrase in connection_phrases):
-            # Add connection note if missing
             message += "\nI'll be there too & looking forward to catching up with you at the event."
         if state['company'].lower() not in message.lower():
-            # Add company mention if missing
             message = message.replace(
                 f"Hi {prospect_first_name},",
                 f"Hi {prospect_first_name},\nI see that you will be attending  {state.get('event_name', '')}.",
@@ -202,9 +218,7 @@ Hi {prospect_first_name},"""
     except Exception as e:
         print(f"Message generation failed: {e}")
         return {**state, "final_message": "Failed to generate message"}
-# =====================
-# Build LangGraph Workflow
-# =====================
+
 workflow = StateGraph(ProspectMessageState)
 workflow.add_node("summarize_backgrounds", summarize_backgrounds)
 workflow.add_node("generate_message", generate_message)
@@ -213,9 +227,7 @@ workflow.add_edge("summarize_backgrounds", "generate_message")
 workflow.add_edge("generate_message", END)
 graph1 = workflow.compile()
 
-# =====================
-# Streamlit UI
-# =====================
+
 st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
 st.title(" First Level Msgs for Ai4 Vegas 2025")
 
@@ -248,7 +260,6 @@ if submitted:
     st.success(" Message Generated!")
     st.text_area("Final LinkedIn Message", result["final_message"], height=200, key="final_msg")
 
-    # Copy button using JavaScript
     copy_code = f"""
     <script>
     function copyToClipboard() {{
