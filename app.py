@@ -229,7 +229,7 @@ graph1 = workflow.compile()
 
 
 st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
-st.title(" First Level Msgs for Step San Francisco 2025 2025")
+st.title(" First Level Msgs for Step San Francisco  2025")
 
 with st.form("prospect_form"):
     prospect_name = st.text_input("Prospect Name", "")
