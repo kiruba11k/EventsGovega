@@ -100,78 +100,78 @@ Create a SHORT LinkedIn connection message (MAX 3 LINES) following this natural 
 Examples:
 
 Hi Tamara,
-I see that you'll be attending Ai4 Vegas 2025. Your leadership in driving agentic AI and multi-agent systems caught my attention. 
+I see that you'll be attending Step San Francisco  2025. Your leadership in driving agentic AI and multi-agent systems caught my attention. 
 I'll be there too & looking forward to catching up at the event!
 Best,
 {my_name}
 
 Hi David,
-I see that you'll be attending Ai4 Vegas 2025. Your work on analytics around content protection caught my attention.
+I see that you'll be attending Step San Francisco  2025. Your work on analytics around content protection caught my attention.
 I'll be there too & looking forward to catching up at the event.
 Best,
 {my_name}
 
 Hi Arthy,
-I see you’ll be attending Ai4 Vegas 2025. Your leadership in driving business transformation, especially in AI adoption and literacy, really caught my attention. I’ll be there too and would love to connect at the event!
+I see you’ll be attending Step San Francisco  2025. Your leadership in driving business transformation, especially in AI adoption and literacy, really caught my attention. I’ll be there too and would love to connect at the event!
 Best,
 {my_name}
 
 Hi Harveer,
-I see that you’ll be attending  Ai4 Vegas 2025. Your leadership in scaling enterprise AI and driving data-led digital transformation in banking and telecom really caught my attention. I’ll be there too & looking forward to catching up with you at the event.
+I see that you’ll be attending  Step San Francisco  2025. Your leadership in scaling enterprise AI and driving data-led digital transformation in banking and telecom really caught my attention. I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Prem,
-I see that you’ll be attending Ai4 Vegas 2025. Your leadership in data governance and complex data migrations, especially in the banking and finance sectors, is quite interesting.
+I see that you’ll be attending Step San Francisco  2025. Your leadership in data governance and complex data migrations, especially in the banking and finance sectors, is quite interesting.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Evan,
-I see that you’ll be attending Ai4 Vegas 2025. Your role in leading generative AI products and bridging commercial-medical needs with AZBrain is a great example of product-led data science.
+I see that you’ll be attending Step San Francisco  2025. Your role in leading generative AI products and bridging commercial-medical needs with AZBrain is a great example of product-led data science.
 I’ll be there too & looking forward to catching up at the event.
 Best,
 {my_name}
 
 Hi David,
-I see that you’ll be attending Ai4 Vegas 2025.. Your work leading analytics around content protection and distribution at NBCU, with deep econometric and ML rigor, caught my attention.
+I see that you’ll be attending Step San Francisco  2025.. Your work leading analytics around content protection and distribution at NBCU, with deep econometric and ML rigor, caught my attention.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Amrita,
-I see that you’ll be attending Ai4 Vegas 2025. Your work on AI-powered payment analytics and client enablement at BNY, especially your focus on insights and commercialization, stood out to me.
+I see that you’ll be attending Step San Francisco  2025. Your work on AI-powered payment analytics and client enablement at BNY, especially your focus on insights and commercialization, stood out to me.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Sandra,
-I see that you’ll be attending Ai4 Vegas 2025. Your leadership in scaling digital health platforms and AI strategy across clinical-grade solutions and connected care really stood out.
+I see that you’ll be attending Step San Francisco  2025. Your leadership in scaling digital health platforms and AI strategy across clinical-grade solutions and connected care really stood out.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Sharna,
-I see that you’ll be attending Ai4 Vegas 2025.. Your work scaling GenAI solutions and leading AI CoEs with a strong focus on Responsible AI aligns closely with where enterprise AI is headed.
+I see that you’ll be attending Step San Francisco  2025.. Your work scaling GenAI solutions and leading AI CoEs with a strong focus on Responsible AI aligns closely with where enterprise AI is headed.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Ali,
-I see that you’ll be attending Ai4 Vegas 2025.. Your transition into leading AI partnerships and building transformation programs grounded in culture and impact-driven adoption is genuinely exciting.
+I see that you’ll be attending Step San Francisco  2025.. Your transition into leading AI partnerships and building transformation programs grounded in culture and impact-driven adoption is genuinely exciting.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 
 Hi Ramya,
-I see that you’ll be attending Ai4 Vegas 2025. Your leadership in AI automation for valuation and advisory especially your focus on building from scratch and challenging norms signals bold thinking.
+I see that you’ll be attending Step San Francisco  2025. Your leadership in AI automation for valuation and advisory especially your focus on building from scratch and challenging norms signals bold thinking.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
 
 Hi Kate,
-I see that you’ll be attending Ai4 Vegas 2025. Your shift from claims to IT leadership, along with your deep background in change and project management, reflects a unique blend of ops and tech insight.
+I see that you’ll be attending Step San Francisco  2025. Your shift from claims to IT leadership, along with your deep background in change and project management, reflects a unique blend of ops and tech insight.
 I’ll be there too & looking forward to catching up with you at the event.
 Best,
 {my_name}
@@ -229,7 +229,7 @@ graph1 = workflow.compile()
 
 
 st.set_page_config(page_title="LinkedIn Message Generator", layout="centered")
-st.title(" First Level Msgs for Ai4 Vegas 2025")
+st.title(" First Level Msgs for Step San Francisco 2025 2025")
 
 with st.form("prospect_form"):
     prospect_name = st.text_input("Prospect Name", "")
@@ -238,7 +238,7 @@ with st.form("prospect_form"):
     industry = ""
     prospect_background = st.text_area("Prospect Background", "Prospect professional background goes here...")
     my_background = ""
-    event_name =  "Ai4 Vegas 2025"
+    event_name =  "Step San Francisco 2025"
     event_details = "August 12-14, MGM Grand Las Vegas"
 
     submitted = st.form_submit_button("Generate Message")
