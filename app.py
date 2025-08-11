@@ -88,7 +88,7 @@ def generate_message(state: ProspectMessageState) -> ProspectMessageState:
     prompt = f"""
 IMPORTANT: Output ONLY the message itself. 
 Do NOT include any explanations, labels, or introductions.
-Create a SHORT LinkedIn connection message (MAX 3 LINES) following this natural pattern:
+Create a SHORT LinkedIn connection message (MAX 3 LINES , 250 chars) following this natural pattern:
 
 1. "Hi {prospect_first_name},"
 2. Mention event participation: "I see that you will be attending {state.get('event_name', '')}"
